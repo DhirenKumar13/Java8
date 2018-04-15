@@ -1,6 +1,5 @@
 package org.doInjava8.optional;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
@@ -19,27 +18,15 @@ public class OptionalDemonstrationPerfectly {
 				.map(sqrt -> Stream.of(sqrt))
 				.orElseGet(() -> Stream.empty());
 		
-		Instant time = Instant.now(); 
-		
 		List<Double> doubleList = ThreadLocalRandom.current().doubles(100_000).boxed()
 						 .flatMap(flatMapper)
 						 .collect(Collectors.toList());
 		
-		Instant time2 = Instant.now();
-		
-		System.out.println("Time taken in stream processing for 100_000 elements is"+(time2.compareTo(time)));
-		
 		System.out.println(" # of doubleList "+doubleList.size());
-		
-		Instant time3 = Instant.now();
 		
 		List<Double> doubleListInParallel = ThreadLocalRandom.current().doubles(100_000).parallel().boxed()
 				 .flatMap(flatMapper)
 				 .collect(Collectors.toList());
-		
-		Instant time4 = Instant.now();
-		
-		System.out.println("Time taken in parallel stream processing for 100_000 elements is"+(time4.compareTo(time3)));
 		
 		System.out.println(" # of doubleListInParallel "+doubleListInParallel.size());
 		
